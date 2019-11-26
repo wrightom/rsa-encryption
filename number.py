@@ -18,6 +18,8 @@ def euclidean(a, b):
 
     a > b
     a coprime b
+
+    See euclidean.py for further explanation
     '''
     #   a = c mod b
     #   a = mb + c
@@ -25,11 +27,7 @@ def euclidean(a, b):
     m = a // b
     c = a - m * b
 
-    print('{} = {}({}) + {}'.format(a,m,b,c))
-
     if (c == 1):
-
-        print('SUBSTITUTE\n1 = 1({}) - {}({})'.format(a,m,b))
 
         #   a = mb + 1
         #   1 = a - mb
@@ -41,10 +39,7 @@ def euclidean(a, b):
     else:
         Q,P = euclidean (b, c)
 
-        Qn = P
-        Pn = Q - P * m
-        print('{} = {}({}) + {}({})'.format(Qn*a + Pn*b, Qn, a, Pn, b))
-        return (Qn, Pn)
+        return (P, Q - P * m)
 
 def totient(p,q):
     '''
@@ -74,3 +69,4 @@ def coPrime(a,b):
 
 if __name__ == '__main__':
     print(euclidean(776,157))
+    print(euclidean(157,73))

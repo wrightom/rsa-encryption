@@ -63,13 +63,15 @@ if __name__ == '__main__':
     '''ENCRYPTION'''
 
     #Alice generates keys
-    e,d,n = genKeys(100,1000)
+    e,d,n = genKeys(100,9999)
     print('public : ',e,n)
     print('private: ',d,n)
 
     #Bob; public key = (e,n)
     m = 126 #message Bob wants to send Alice. Encrypts using Alice's public key
     c = encrypt(m, e, n) #ciphertext, Bob transmits
+
+    print('\nmessage =', m)
     print('ciphertext =', c)
     
     #Alice; private key = (d,n)
@@ -80,8 +82,10 @@ if __name__ == '__main__':
     '''SIGNING'''
     #Alice: uses same keys (e,d,n)
     data = 986 #Alice wishes to sign data to verify that she sent it
-    s = decrypt(m, d, n) #signature; Alice signs using her private key, (d, n)
+    s = decrypt(data, d, n) #signature; Alice signs using her private key, (d, n)
     #signiture, s, is transmitted along with data
+
+    print('\ndata =', data)
     print('signature =', s)
 
     #Bob recieves data & signature
@@ -89,4 +93,10 @@ if __name__ == '__main__':
     #if (v==data), Bob knows only Alice could have sent the data, and that it has not been altered
     print('verification =', v)
 
-    ##ISSUE v != data, v always 126?
+'''
+One issue here is that because e is generated randomly up to phi(n), it is very big.
+This makes (m ** e) mod n very difficult to calculate, thus the algorithm is very slow.
+However, e need not be random, as it is transmitted publicly.
+Normally, a standard e is used - normally, 3,5,17,257, or 65537.
+This greatly increases the speed of the algorithm, without comprising security
+'''
