@@ -1,3 +1,4 @@
+import math
 
 def mod_inv(a, b):
     """
@@ -64,4 +65,3 @@ def isPrime(n):
 
 def coPrime(a,b):
     return math.gcd(a,b) == 1
-
