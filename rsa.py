@@ -10,6 +10,7 @@ def genD(e,t):
     '''
     #   k * phi(n) + 1 = e * d
     #   e * d = 1 mod phi(n)
+    #  [d = 1/e mod phi(n) ; dodgy notation, 1/e fraction]
     #   d = inverse(e) mod phi(n)
 
     return number.mod_inv(e,t) % t

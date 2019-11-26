@@ -14,34 +14,36 @@ def mod_inv(a, b):
 
 def euclidean(a, b):
     '''
-    Executes euclidean algorithm step
+    Euclidean algorithm for finding modular inverse in RSA
 
     a > b
+    a coprime b
     '''
-    #a = mb + [a-mb]
-    #a = mb + c
+    #   a = c mod b
+    #   a = mb + c
 
     m = a // b
     c = a - m * b
 
-    #print('{} = {}({}) + {}'.format(a,m,b,c))
+    print('{} = {}({}) + {}'.format(a,m,b,c))
 
     if (c == 1):
-        #(c = 1)
-        #a = mb + c
-        #c = a - mb
-        #print('SUBSITUTE')
 
-        #print('1 = - {}({}) + 1({})'.format(m,b,a))
-        #  1 = Qx_(n+2) + Px_(n+1)
-        #       Q,  P
+        print('SUBSTITUTE\n1 = 1({}) - {}({})'.format(a,m,b))
+
+        #   a = mb + 1
+        #   1 = a - mb
+        #   1 = Q(a) + P(b)
+        #   return (Q,P)
+        
         return (1, -m)
+
     else:
         Q,P = euclidean (b, c)
-        #  1 = Qx_(b) + Px_(c)
+
         Qn = P
         Pn = Q - P * m
-        #print('1 = {}({}) + {}({})      DEBUG:{}'.format(Qn, a, Pn, b, Qn*a + Pn*b))
+        print('{} = {}({}) + {}({})'.format(Qn*a + Pn*b, Qn, a, Pn, b))
         return (Qn, Pn)
 
 def totient(p,q):
@@ -69,3 +71,6 @@ def isPrime(n):
 
 def coPrime(a,b):
     return math.gcd(a,b) == 1
+
+if __name__ == '__main__':
+    print(euclidean(776,157))
