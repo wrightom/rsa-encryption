@@ -4,15 +4,31 @@
 import math, random, number
 
 def genD(e,t):
+    '''
+    Generates decryption exponent, d
+    from encryption exponent, e, and t = phi(n)
+    '''
+    #   k * phi(n) + 1 = e * d
+    #   e * d = 1 mod phi(n)
+    #   d = inverse(e) mod phi(n)
+
     return number.mod_inv(e,t) % t
 
 def genE(t):
+    '''
+    Randomly selects encryption exponent, e, such that:
+        e coprime with phi(n)
+        1 < e < phi(n)
+    '''
     while True:
-        c = random.randint(3,t)
+        c = random.randint(2,t)
         if number.coPrime(c,t):
             return c
 
 def genKeys(l, u):
+    '''
+    Generate RSA keys, such that p,q within bounds l,u (inclusive)
+    '''
     p, q = RandomPrime(l,u), RandomPrime(l,u)
     n = p * q
     t = number.totient(p,q) # t = phi(n), Euler Totient Function
@@ -21,6 +37,9 @@ def genKeys(l, u):
     return (e,d,n)
 
 def RandomPrime (lower, upper):
+    '''
+    Generates random prime number between bounds (inclusive)
+    '''
     #efficient up to around 10 decimal places
     if upper-lower <= 1:
         return None

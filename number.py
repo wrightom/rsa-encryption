@@ -4,8 +4,9 @@ def mod_inv(a, b):
     """
     Returns x, solution to
     [ax = 1 mod b]
+    , using Euclidean algorithm
     """
-    # >> kb + ax = 1
+    # => kb + ax = 1
 
     k,x = euclidean(b,a)
 
@@ -52,6 +53,9 @@ def totient(p,q):
     return (p-1) * (q-1)
 
 def isPrime(n):
+    '''
+    Checks primality exhaustively
+    '''
 
     if (n % 2) == 0:
         return False
