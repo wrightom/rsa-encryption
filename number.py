@@ -1,4 +1,3 @@
-import math
 
 def mod_inv(a, b):
     """
@@ -10,7 +9,6 @@ def mod_inv(a, b):
     k,x = euclidean(b,a)
 
     return x
-    
 
 def euclidean(a, b):
     '''
@@ -43,3 +41,27 @@ def euclidean(a, b):
         Pn = Q - P * m
         #print('1 = {}({}) + {}({})      DEBUG:{}'.format(Qn, a, Pn, b, Qn*a + Pn*b))
         return (Qn, Pn)
+
+def totient(p,q):
+    '''
+    computes Euler totient function, phi(n)
+    where n = pq, p & q prime
+    '''
+
+    return (p-1) * (q-1)
+
+def isPrime(n):
+
+    if (n % 2) == 0:
+        return False
+
+    target = int(math.sqrt(n)) + 1
+    for i in range(3, target):
+        if (n % i) == 0:
+            return False
+
+    return True
+
+def coPrime(a,b):
+    return math.gcd(a,b) == 1
+

@@ -1,7 +1,32 @@
-#RSA Algorithm
-#By Tom Wright
-import tools
-import euclidean
+import math, random
+
+def genD(e,t):
+    return number.mod_inv(e,t) % t
+
+def genE(t):
+    while True:
+        c = random.randint(3,t)
+        if number.coPrime(c,t):
+            return c
+
+def genKeys(l, u):
+    p, q = RandomPrime(u,l), RandomPrime(u,l)
+    n = p * q
+    t = number.totient(p,q) # t = phi(n), Euler Totient Function
+    e = RSA.genE()
+    d = RSA.genD(e,t)
+    return (e,d,n)
+
+def RandomPrime (lower, upper):
+    #efficient up to around 10 decimal places
+    if upper-lower <= 1:
+        return None
+
+    while True:
+        c = random.randint(lower,upper) #candidate
+
+        if (number.isPrime(c)):
+            return c
 
 def encrypt (m, e, n):
     return (m ** e) % n
@@ -9,23 +34,3 @@ def encrypt (m, e, n):
 def decrypt (c, d, n):
     return (c ** d) % n
 
-
-#algorithm instance
-
-#generate two large random prime numbers, p & q
-#(using max 10 dp numbers)
-u, l = 999999, 99999999
-p, q = tools.RandomPrime(u,l), tools.RandomPrime(u,l)
-n = p * q
-t = tools.primeTotient(p,q) # t = phi(n), Euler Totient Function
-e = tools.getE(t)
-print(p,q,n,t,e, "p,q,n,t,e")
-
-d = euclidean.mod_inv(e,t)
-
-m = 235
-c = encrypt(m,e,n)
-print('ENCRYPT {} -> {}'.format(m,c))
-k = decrypt(c,d,n)
-print('DECRYPT {} -> {}'.format(c,k))
-input()
